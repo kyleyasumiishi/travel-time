@@ -6,7 +6,7 @@ const getDistanceArgs = maps.getDistanceArgs;
 const getDirectionArgs = maps.getDirectionArgs;
 const getTravelInfo = maps.getTravelInfo;
 
-const interval = 5 * 60 * 1000;
+const interval = .1 * 60 * 1000;
 
 getTravelTimes();
 setInterval(() => {getTravelTimes()}, interval);
@@ -20,14 +20,17 @@ function getTravelTimes() {
         
         getTravelInfo(distanceMatrixArgs, directionsArgs, function(err, route, distance, duration_in_traffic) {
             if (err) return console.log(err);
+            const date = new Date();
+            const time = getTime(date);
             const travelInfo = {
-                time: new Date().toString(),
+                time: time,
                 route: route,
                 distance: distance,
                 duration_in_traffic: duration_in_traffic
             };
-            const json = JSON.stringify(travelInfo) + '\n';
-            fs.appendFile('results.txt', json, function(err) {
+            // const json = JSON.stringify(travelInfo) + '\n';
+            const updateStr = `Time: ${travelInfo.time}, Route: ${travelInfo.route}, Duration: ${travelInfo.duration_in_traffic}` + '\n';
+            fs.appendFile('results.txt', updateStr, function(err) {
                 if (err) return console.log('There was an error saving to results file');
                 console.log(`Saved updated results for route ${travelInfo.route}`);
             });
@@ -35,6 +38,9 @@ function getTravelTimes() {
     }
 }
 
+function getTime(date) {
+    return date.getHours().toString() + ":" + date.getMinutes().toString();
+}
 
 
 

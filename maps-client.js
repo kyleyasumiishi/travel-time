@@ -40,17 +40,6 @@ function getTravelInfo(args1, args2, callback) {
     });
 }
 
-// getTravelInfo(distanceMatrixArgs, directionsArgs, function(err, route, distance, duration_in_traffic) {
-//     if (err) return console.log(err);
-//     const travelInfo = {
-//         route: route,
-//         distance: distance,
-//         duration_in_traffic: duration_in_traffic
-//     };
-//     // push travelInfo to an array
-//     console.log(travelInfo);
-// });
-
 module.exports = {
     googleMapsClient: googleMapsClient,
     getDirectionArgs: getDirectionArgs,
