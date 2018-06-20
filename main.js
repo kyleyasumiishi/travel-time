@@ -1,4 +1,4 @@
-const distance = require('google-distance');
+const distance = require('./google-distance');
 const config = require('./config');
 const API_KEY = config.API_KEY;
 const milliseconds = 1 * 60 * 1000;
@@ -6,8 +6,8 @@ const milliseconds = 1 * 60 * 1000;
 // put summary path in object
 
 const args = {
-    origin: 'University High School, 1108 Texas Ave, Los Angeles, CA 90025',
-    destination: 'KPMG, 550 S Hope St, Los Angeles, CA 90071',
+    origin: '47.4687851,-122.6241453',
+    destination: '47.5637248,-122.6531826',
     mode: 'driving',
     units: 'imperial'
 };
@@ -22,7 +22,7 @@ function callback(err, data) {
             distance: data.distance
         };
         console.log(record);
-        // console.log(data);
+        console.log(data);
 };
 
 distance.apiKey = API_KEY;
