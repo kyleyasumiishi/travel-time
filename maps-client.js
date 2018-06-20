@@ -3,15 +3,6 @@ const googleMapsClient = require('@google/maps').createClient({
     key: config.API_KEY,
 });
 
-const args = {
-    origin: '47.5717777,-122.3197344',
-    destination: 'Starbucks Reserve Roastery, 1124 Pike St, Seattle, WA 98101',
-    mode: 'driving',
-    units: 'imperial',
-    language: 'en',
-    departure_time: 'now'
-};
-
 function getDistanceArgs(origin, destination) {
     const distanceMatrixArgs = {
         origins: [origin],
@@ -36,7 +27,6 @@ function getDirectionArgs(origin, destination) {
     return directionArgs;
 }
 
-
 function getTravelInfo(args1, args2, callback) {
     googleMapsClient.distanceMatrix(args1, function(err, data) {
         if (err) return console.log(err);
@@ -50,12 +40,21 @@ function getTravelInfo(args1, args2, callback) {
     });
 }
 
-getTravelInfo(distanceMatrixArgs, directionsArgs, function(err, route, distance, duration_in_traffic) {
-    if (err) return console.log(err);
-    const travelInfo = {
-        route: route,
-        distance: distance,
-        duration_in_traffic: duration_in_traffic
-    };
-    console.log(travelInfo);
-});
+// getTravelInfo(distanceMatrixArgs, directionsArgs, function(err, route, distance, duration_in_traffic) {
+//     if (err) return console.log(err);
+//     const travelInfo = {
+//         route: route,
+//         distance: distance,
+//         duration_in_traffic: duration_in_traffic
+//     };
+//     // push travelInfo to an array
+//     console.log(travelInfo);
+// });
+
+module.exports = {
+    googleMapsClient: googleMapsClient,
+    getDirectionArgs: getDirectionArgs,
+    getDistanceArgs: getDistanceArgs,
+    getTravelInfo: getTravelInfo
+
+}
